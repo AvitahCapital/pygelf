@@ -36,6 +36,9 @@ def make(record, domain, debug, version, additional_fields, include_extra_fields
         'level': LEVELS[record.levelno],
         'host': domain
     }
+    #if short_message is 0 length string then no message gets logged!
+    if gelf['short_message'] == '':
+        gelf['short_message'] = 'NA'
 
     if record.exc_info is not None:
         gelf['full_message'] = '\n'.join(traceback.format_exception(*record.exc_info))
